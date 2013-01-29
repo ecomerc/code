@@ -1,10 +1,3 @@
-; EcoMerc
-; http://code.ecomerc.com
-; 
-; Version 2013-01-29
-;
-; License: GPL v2
-
 #SingleInstance force
 ; Usage: Press CTRL+CapsLock, hold CTRL and use arrow keys to navigate desktops
 
@@ -31,7 +24,6 @@ RotatingCube := 0
 					
 					;Move it so it fills the screen, but not 0,0 because then we would think it was maximized
 					WinMove, ahk_id %active_id%,, 1, 1, WinWidth - 2, WinHeight-2
-					tooltip SaveId %active_id%
 					
 				}
 			}
@@ -55,12 +47,13 @@ RotatingCube := 0
 			;;Set SecondaryTaskbar as Always OnTop
 			Winset, AlwaysOnTop, off, SecondaryTaskbar
 		} else {
-			;;Maximizing MSTSC
-			WinActivate 
-			send !^{vk03sc146}
-			
 			;;Set SecondaryTaskbar as Not Always OnTop (it has a bug)
 			Winset, AlwaysOnTop, off, SecondaryTaskbar
+			
+			;;Maximizing MSTSC
+			WinActivate ahk_class TscShellContainerClass
+			send !^{vk03sc146}
+			
 		}
 	}
 	RotatingCube := 0
